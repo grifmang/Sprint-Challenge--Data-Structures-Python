@@ -1,3 +1,5 @@
+
+result = []
 class Node:
     def __init__(self, value=None, next_node=None):
         # the value at this linked list node
@@ -16,10 +18,11 @@ class Node:
         self.next_node = new_next
 
 
-class LinkedList:
+class LinkedList():
     def __init__(self):
         # reference to the head of the list
         self.head = None
+
 
     def add_to_head(self, value):
         node = Node(value)
@@ -45,6 +48,19 @@ class LinkedList:
         # if we've gotten here, then the target node isn't in our list
         return False
 
+    
+
     def reverse_list(self, node, prev):
         # You must use recursion for this solution
-        pass
+        # print(node.value)
+        # print(prev)
+        if node == None:
+            return
+        if node.next_node == None:
+            node.next_node = prev
+            self.head = node
+            return
+        else:
+            next = node.next_node
+            node.next_node = prev
+            self.reverse_list(next, node)
