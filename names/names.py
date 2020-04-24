@@ -10,14 +10,44 @@ f = open('names_2.txt', 'r')
 names_2 = f.read().split("\n")  # List containing 10000 names
 f.close()
 
-duplicates = [name for name in names_1 if name in names_2] 
+# duplicates = [name for name in names_1 if name in names_2] 
+
+duplicates = []
+
+def quicksort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[0]
+    smaller = []
+    larger = []
+    for i in range(1, len(arr)):
+        if arr[i] <= pivot:
+            smaller.append(arr[i])
+        else:
+            larger.append(arr[i])
+    return quicksort(smaller) + [pivot] + quicksort(larger)
+
+names_2 = quicksort(names_2)
 
 
-# Replace the nested for loops below with your improvements
-# for name_1 in names_1:
-#     for name_2 in names_2:
-#         if name_1 == name_2:
-#             duplicates.append(name_1)
+
+def binary_search(arr, target):
+    
+  low = 0
+  high = len(arr)-1
+
+  while low < high:
+    mid = (low + high) // 2
+    if arr[mid] == target:
+      return target
+    elif target < arr[mid]:
+      high = mid
+    else:
+      low = mid+1
+
+for name in names_1:
+    if name == binary_search(names_2, name):
+        duplicates.append(name)
 
 end_time = time.time()
 print (f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
